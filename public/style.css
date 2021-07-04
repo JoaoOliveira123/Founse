@@ -1,0 +1,65 @@
+body{
+    background-color: #f1f1f1
+}
+
+.title:hover{
+    color: blue;
+}
+
+.main_image{
+    width: 30%;
+    border-radius: 10px;
+}
+
+.title{
+    margin-left: 45%;
+    width: 30%;
+    color: #1affff;
+    text-decoration: none;
+}
+
+.hn{
+    text-decoration: none;
+    margin-top: -15px;
+    margin-left: 3%;
+    font-size: 25px;
+    font-weight: bold;
+    color: #103
+}
+
+.price_local{
+    height: 132px;
+    width: 30%;
+    background-color: rgba(112, 145, 245, 0.15);
+    text-align: center;
+    margin-left: 31.74%;
+    border-radius: 16px;
+    margin-top: -1px;
+}
+
+.house_type{
+    margin-left: -12.5%;
+    font-size: 12px;
+}
+
+.user_local{
+    background-color: white;
+    width: 75%;
+    border-radius: 12px;
+    margin-left: 12%;
+    padding: 0.5%;
+    line-height: 70px;
+}
+
+.inputs{
+    margin-left: 1%;
+}
+
+.district,.street,.city,.house,.state{
+    width: 98%;
+    height: 40px;
+}
+
+.state{
+    width: 98.5%
+}
