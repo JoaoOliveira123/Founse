@@ -59,8 +59,8 @@ async def load(file):
 async def read_json(file):
     """Get the data of json file"""
     json_data = ''
-    with open(file, 'r', encoding='utf-8') as file_mover:
-        json_data = await load(file_mover)
+    with open(file, 'r', encoding='utf-8') as file_modifier:
+        json_data = await load(file_modifier)
     return json_data
 
 async def organize_http_with_another_data(http_data, file):
