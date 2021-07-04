@@ -10,3 +10,5 @@ por sockets.
 
 3 - Com os problemas apresentados já deve dar para notar, mas para reforçar: ESSE CÓDIGO NÃO É PARA SER USADO EM ALGUM AMBIENTE PROFISSIONAL. Até porque, não foi
 feito para isso né?
+
+4 - Esse código só funciona se você colocar a pasta publica em localhost:8080, se não, precisa fazer algumas alterações no client.
