@@ -1,0 +1,17 @@
+{
+ "Rio Das Ostras": {
+    "Name": "Rio das Ostras",
+    "Marileia": {
+        "Name": "Marileia",
+        "Rua Pastel": {
+            "Name": "Rua Pastel",
+            "87A": {
+                "Price": "R$165.000",
+                "Name": "87A",
+                "MainImage": "https://www.decorfacil.com/wp-content/uploads/2017/03/20171011fachada-casa-simples-pequena-99-960x600.jpg",
+                "Type": "Casa"
+                }
+            }
+        }
+    }
+}
