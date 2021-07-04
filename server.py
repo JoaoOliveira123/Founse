@@ -53,7 +53,7 @@ def capitalize_thing(obj: str):
     return ' '.join(i[0].upper() + i[1:] for i in obj.split())
 
 async def load(file):
-    """json.load of a asynchronous form"""
+    """json.load in a asynchronous way"""
     return json.load(file)
 
 async def read_json(file):
