@@ -1,3 +1,6 @@
+//  Isso não está completo
+//  Isso verifica um input submit, e se estiver tudo ok, vai para outra página para mostrar casas de acordo
+//  com o pesquisado.
 function make_input_dict(inputs, opitional, info_dict={}){
     inputs.forEach((i) => {
         var have_to_has = true
