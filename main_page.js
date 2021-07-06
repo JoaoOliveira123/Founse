@@ -22,6 +22,26 @@ function keyboardhandle(event, elmt_dict, button_class) {
     }
 }
 
+function make_a_houseinfo_dict_and_verify(elmt_dict, bc){
+    var hid = {}
+    Object.keys(elmt_dict).forEach((key) => {
+        if (key != bc){
+            var atual = elmt_dict[key]
+            var elmnt_value = atual.element.value
+            if (atual.obrigatory && elmnt_value == ''){
+                return false
+            }
+            hid[key] = elmnt_value
+        }
+    })
+}
+
+
+
+
 var inputs_data = make_input_dict(document.querySelectorAll('input'), ('house', 'street'))
 var send_button = document.querySelector('.state')
 document.addEventListener('keydown', (event) => {keyboardhandle(event, inputs_data, 'state')})
+send_button.addEventListener('click', () => {
+
+})
