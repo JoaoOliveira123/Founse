@@ -31,18 +31,18 @@ async def receive_http_data(http_request) -> list:
 async def solve_recursive_objects(master, return_args, counter=0, **kwgs):
     """It get data with a recursive form with the args of this being other dictionary's arguments"""
     main = kwgs['main']
-    alt_args = kwgs['alt_args']
     keys = kwgs['keys']
     cause_error = kwgs['cause_error']
-    atual_key = capitalize_thing(main[keys[counter]])
+    atual_key = main[keys[counter]]
+    atual_capitalized = capitalize_thing(atual_key)
     try:
-        return_args[keys[counter]] = master[atual_key]
+        return_args[keys[counter]] = master[atual_capitalized]
         if len(return_args.keys()) > 1:
-            return_args[keys[counter-1]] = alt_args[counter-1]
+            return_args[keys[counter-1]] = capitalize_thing(main[atual_key])
         counter += 1
         if counter >= len(keys):
             return return_args
-        return await solve_recursive_objects(master[atual_key], return_args, counter, **kwgs)
+        return await solve_recursive_objects(master[atual_capitalized], return_args, counter, **kwgs)
     except KeyError:
         if cause_error[counter+1]:
             return 'error'
@@ -63,15 +63,16 @@ async def read_json(file):
         json_data = await load(file_modifier)
     return json_data
 
+def make_house_list(tlist):
+    return [k for k in tlist for g in ('city', 'district', 'street', 'house') if g == k]
+
 async def organize_http_with_another_data(http_data, file):
     """Verify http or return all possible things with atual information"""
     data = await read_json(file)
     legible_http = json.loads(http_data)
     response_data = {}
-    items_http = [capitalize_thing(i) for i in legible_http.values()]
     organize_args = dict(main=legible_http,
-                         alt_args=items_http[:-1],
-                         keys=list(legible_http.keys()),
+                         keys=make_house_list(list(legible_http.keys())),
                          cause_error=(True, True, False, False)
                         )
     response_data = await solve_recursive_objects(data, {}, **organize_args)
