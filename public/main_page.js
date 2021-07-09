@@ -56,7 +56,7 @@ function button_click(elmt_dict, button_class, button_element){
     var user_data = make_a_houseinfo_dict_and_verify(elmt_dict, button_class)
     if (user_data != false){
         $.post('http://localhost:1060', JSON.stringify(user_data), (res) => {
-            location.href = 'http://localhost:8080/houses.html?data=' + JSON.stringify(res)
+            location.href = 'http://localhost:8080/houses.html?data=' + encodeURIComponent(JSON.stringify(res))
         })
     }
 }

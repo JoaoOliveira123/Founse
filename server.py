@@ -39,7 +39,7 @@ async def solve_recursive_objects(master, return_args, counter=0, **kwgs):
     try:
         return_args[keys[counter]] = master[atual_capitalized]
         if len(return_args.keys()) > 1:
-            return_args[keys[counter-1]] = capitalize_thing(main[atual_key])
+            return_args[keys[counter-1]] = capitalize_thing(main[keys[counter-1]])
         counter += 1
         if counter >= len(keys):
             return return_args
@@ -65,15 +65,16 @@ async def read_json(file):
     return json_data
 
 def make_house_list(tlist):
-    return [k for k in tlist for g in ('city', 'district', 'street', 'house') if g == k]
+    return [k for g in ('city', 'district', 'street', 'house') for k in tlist if g == k]
 
 async def organize_http_with_another_data(http_data, file):
     """Verify http or return all possible things with atual information"""
     data = await read_json(file)
     legible_http = json.loads(http_data)
     response_data = {}
+    a = make_house_list(list(legible_http.keys()))
     organize_args = dict(main=legible_http,
-                         keys=make_house_list(list(legible_http.keys())),
+                         keys= a,
                          cause_error=(True, True, False, False)
                         )
     response_data = await solve_recursive_objects(data, {}, **organize_args)
