@@ -2,6 +2,7 @@ import asyncio
 import json
 import gzip
 import re
+import socket
 
 def verify_ok(code):
     """Verify if the http code is 200 OK"""
@@ -115,7 +116,8 @@ async def async_server(reader: asyncio.StreamReader, writer: asyncio.StreamWrite
 
 if __name__ == "__main__":
     LOOP = asyncio.get_event_loop()
-    CORO = asyncio.start_server(async_server, *('127.0.0.1', 1060))
+    LOOP.create_server
+    CORO = asyncio.start_server(async_server, *('127.0.0.1', 1060), family=socket.AF_INET)
     SERVER = LOOP.run_until_complete(CORO)
     try:
         LOOP.run_forever()
