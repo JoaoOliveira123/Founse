@@ -59,6 +59,9 @@ function button_click(elmt_dict, button_class, button_element){
             location.href = 'http://localhost:8080/houses.html?data=' + encodeURIComponent(JSON.stringify(res))
         })
     }
+    else{
+        
+    }
 }
 
 
