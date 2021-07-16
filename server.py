@@ -2,17 +2,18 @@ import asyncio
 import json
 import gzip
 import re
+import socket
 
 def verify_ok(code):
     """Verify if the http code is 200 OK"""
     return re.sub('[^0-9]', '', code)[2:] < '400'
 
-def make_http_header(dcn, http_code='HTTP/1.1 200 OK'):
+def make_http_header(dcn, error, http_code='HTTP/1.1 200 OK'):
     """It makes a http header with a dictionary, each item work as one header"""
     if not http_code.startswith('HTTP/'):
         http_code = 'HTTP/1.1' + http_code
     if not verify_ok(http_code):
-        return http_code.encode('utf-8') + b'\r\n\r\n'
+        return http_code.encode('utf-8') + b'\r\n\r\n' + error.encode('utf-8')
     string_dict = json.dumps(dcn)
     response_list = [
         ''.join(i + '\r\n').strip('{ }').replace('"', '').replace(' ', '').encode('utf-8')
@@ -31,18 +32,18 @@ async def receive_http_data(http_request) -> list:
 async def solve_recursive_objects(master, return_args, counter=0, **kwgs):
     """It get data with a recursive form with the args of this being other dictionary's arguments"""
     main = kwgs['main']
-    alt_args = kwgs['alt_args']
     keys = kwgs['keys']
     cause_error = kwgs['cause_error']
-    atual_key = capitalize_thing(main[keys[counter]])
+    atual_key = main[keys[counter]]
+    atual_capitalized = capitalize_thing(atual_key)
     try:
-        return_args[keys[counter]] = master[atual_key]
+        return_args[keys[counter]] = master[atual_capitalized]
         if len(return_args.keys()) > 1:
-            return_args[keys[counter-1]] = alt_args[counter-1]
+            return_args[keys[counter-1]] = capitalize_thing(main[keys[counter-1]])
         counter += 1
         if counter >= len(keys):
             return return_args
-        return await solve_recursive_objects(master[atual_key], return_args, counter, **kwgs)
+        return await solve_recursive_objects(master[atual_capitalized], return_args, counter, **kwgs)
     except KeyError:
         if cause_error[counter+1]:
             return 'error'
@@ -63,15 +64,17 @@ async def read_json(file):
         json_data = await load(file_modifier)
     return json_data
 
+def make_house_list(tlist):
+    return [k for g in ('city', 'district', 'street', 'house') for k in tlist if g == k]
+
 async def organize_http_with_another_data(http_data, file):
     """Verify http or return all possible things with atual information"""
     data = await read_json(file)
     legible_http = json.loads(http_data)
     response_data = {}
-    items_http = [capitalize_thing(i) for i in legible_http.values()]
+    a = make_house_list(list(legible_http.keys()))
     organize_args = dict(main=legible_http,
-                         alt_args=items_http[:-1],
-                         keys=list(legible_http.keys()),
+                         keys= a,
                          cause_error=(True, True, False, False)
                         )
     response_data = await solve_recursive_objects(data, {}, **organize_args)
@@ -108,13 +111,14 @@ async def async_server(reader: asyncio.StreamReader, writer: asyncio.StreamWrite
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': '*'
         }
-    header = make_http_header(http_headers, 'HTTP/1.1 ' + code)
+    header = make_http_header(http_headers, 'Access-Control-Allow-Origin: *\r\n\
+                              Access-Control-Allow-Headers: *\r\n\r\n','HTTP/1.1 ' + code)
     await send_http_response(writer, header, response_data)
     writer.close()
 
 if __name__ == "__main__":
     LOOP = asyncio.get_event_loop()
-    CORO = asyncio.start_server(async_server, *('127.0.0.1', 1060))
+    CORO = asyncio.start_server(async_server, *('127.0.0.1', 1060), family=socket.AF_INET)
     SERVER = LOOP.run_until_complete(CORO)
     try:
         LOOP.run_forever()

@@ -1,0 +1,176 @@
+body{
+    background-color: #f1f1f1
+}
+
+.title:hover{
+    color: blue;
+}
+
+.main_image{
+    width: 30%;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.title{
+    margin-left: 45%;
+    width: 30%;
+    color: #1affff;
+    text-decoration: none;
+}
+
+.hn{
+    text-decoration: none;
+    margin-top: -15px;
+    margin-left: 3%;
+    font-size: 25px;
+    font-weight: bold;
+    color: #103
+}
+
+.price_local{
+    height: 132px;
+    width: 30%;
+    background-color: rgba(112, 145, 245, 0.15);
+    text-align: center;
+    margin-left: 31.74%;
+    border-radius: 16px;
+    margin-top: -1px;
+}
+
+.the_one_main_image{
+    width: 40%;
+}
+
+.house_type{
+    margin-left: -5.5%;
+    font-size: 12px;
+}
+
+.user_local{
+    background-color: white;
+    width: 75%;
+    border-radius: 12px;
+    margin-left: 12%;
+    padding: 0.5%;
+    line-height: 70px;
+    margin-top: 12px;
+    text-align: center;
+}
+
+section.user_local{
+    padding-bottom: 0.01%;
+}
+
+.inputs{
+    margin-left: 1%;
+}
+
+.district,.street,.city,.house,.state{
+    width: 98%;
+    height: 40px;
+}
+
+.state{
+    width: 98.5%
+}
+
+.error{
+    font-weight: bold;
+    margin-left: 39.5%;
+    color: #aaa;
+}
+
+.didntfill{
+    font-size: 87%;
+    color: red;
+    margin-top: -29px;
+}
+
+@media screen and (max-width: 1066px){
+    .price_local{
+        margin-top: -1px;
+        margin-left: 26%;
+        height: 180px;
+        padding-top: 42px;
+    }
+    .house_type{
+        margin-left: -6.7%
+    }
+}
+
+@media screen and (max-width: 900px){
+    .error{
+        margin-left: 36%
+    }
+    .house_type{
+        margin-left: -7.3%
+    }
+
+    .the_one_main_image{
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 750px){
+    .price_local{
+        font-size: 76%
+    }
+    .house_type{
+        margin-left: -9%
+    }
+}
+
+@media screen and (max-width: 700px){
+    .title{
+        margin-left: 40%
+    }
+
+    .error{
+        margin-left: 31%
+    }
+    
+    .hn{
+        margin-left: 24%;
+    }
+
+    .main_image{
+        width: 42%
+    }
+
+    .house_type{
+        margin-left: -10%;
+    }
+
+    .price_local{
+        padding-top: 24px;
+        margin-left: 43%;
+        margin-top: -140px;
+        height: 120px;
+        width: 57%;
+    }
+}
+
+@media screen and (max-width: 570px){
+    .title{
+        margin-left: 36%;
+    }
+
+    .house_type{
+        margin-left: -13%
+    }
+
+    .error{
+        margin-left: 23%;
+    }
+}
+
+@media screen and (max-width: 460px){
+    .house_type{
+        margin-left: -15%;
+    }
+
+    .didntfill{
+        font-size: 76%;
+    }
+}
