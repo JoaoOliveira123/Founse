@@ -8,12 +8,12 @@ def verify_ok(code):
     """Verify if the http code is 200 OK"""
     return re.sub('[^0-9]', '', code)[2:] < '400'
 
-def make_http_header(dcn, http_code='HTTP/1.1 200 OK'):
+def make_http_header(dcn, error, http_code='HTTP/1.1 200 OK'):
     """It makes a http header with a dictionary, each item work as one header"""
     if not http_code.startswith('HTTP/'):
         http_code = 'HTTP/1.1' + http_code
     if not verify_ok(http_code):
-        return http_code.encode('utf-8') + b'\r\n\r\n'
+        return http_code.encode('utf-8') + b'\r\n\r\n' + error.encode('utf-8')
     string_dict = json.dumps(dcn)
     response_list = [
         ''.join(i + '\r\n').strip('{ }').replace('"', '').replace(' ', '').encode('utf-8')
@@ -111,7 +111,8 @@ async def async_server(reader: asyncio.StreamReader, writer: asyncio.StreamWrite
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': '*'
         }
-    header = make_http_header(http_headers, 'HTTP/1.1 ' + code)
+    header = make_http_header(http_headers, 'Access-Control-Allow-Origin: *\r\n\
+                              Access-Control-Allow-Headers: *\r\n\r\n','HTTP/1.1 ' + code)
     await send_http_response(writer, header, response_data)
     writer.close()
 
