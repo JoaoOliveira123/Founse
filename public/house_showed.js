@@ -11,8 +11,10 @@ var city = document.createElement('p')
 var district = document.createElement('p')
 var street = document.createElement('p')
 var number = document.createElement('p')
+
+ul.style.textAlign = 'left'
 image.src = data.house.MainImage
-image.style.width = '40%'
+image.setAttribute('class', 'the_one_main_image')
 price.style.fontWeight = 'bold'
 price.style.marginTop = '-30px'
 price.innerHTML = `Preço: ${data.house.Price}`
