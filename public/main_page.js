@@ -46,7 +46,10 @@ function make_a_houseinfo_dict_and_verify(elmt_dict, bc){
                 ar = false
                 return false
             }
-            hid[key] = elmnt_value
+            
+            if (elmnt_value != ''){
+                hid[key] = elmnt_value
+            }
         }
     })
     if (ar){
