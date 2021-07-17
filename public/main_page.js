@@ -61,7 +61,6 @@ function button_click(elmt_dict, button_class, button_element, super_input_class
     button_element.style.backgroundColor = '#ccc'
     button_element.style.borderRadius = '5px'
     var user_data = make_a_houseinfo_dict_and_verify(elmt_dict, button_class)
-    console.log(user_data)
     if (user_data != false){
         $.post('http://localhost:1060', JSON.stringify(user_data), (res) => {
             location.href = 'http://localhost:8080/houses.html?data=' + encodeURIComponent(JSON.stringify(res))
@@ -70,7 +69,6 @@ function button_click(elmt_dict, button_class, button_element, super_input_class
             location.href = 'http://localhost:8080/houses.html?data=' + encodeURIComponent('O endereço digitado é inválido')})
     }
     else{
-        console.log('ujddj')
         var error_message = document.createElement('p')
         error_message.setAttribute('class', 'didntfill')
         error_message.innerHTML = 'Erro: Preencha todos os campos obrigatórios!'
